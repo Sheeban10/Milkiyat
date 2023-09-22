@@ -66,7 +66,10 @@ class SplashActivity :AppCompatActivity() {
 
         Handler().postDelayed(
             {
+                val locationData = "Area, City, Country"
+
                 val intent = Intent(this, LoginActivity::class.java)
+                intent.putExtra("locationData", locationData)
                 startActivity(intent)
                 finish()
             },SPLASH_TIME_OUT
