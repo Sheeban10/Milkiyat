@@ -96,16 +96,14 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     Log.e("LocationData", "Location is not available")
                     Toast.makeText(this, "Location is not available", Toast.LENGTH_SHORT).show()
-
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                        LOCATION_PERMISSION_REQUEST_CODE
-                    )
                 }
             }
         } else {
-
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
         }
 
     }
