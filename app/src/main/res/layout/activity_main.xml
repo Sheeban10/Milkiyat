@@ -6,56 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/btnlocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="25dp">
-
-        <Button
-            android:id="@+id/btnLocation"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/location"/>
-
-        <TextView
-            android:id="@+id/locationText"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="13dp"
-            android:layout_marginStart="5dp"
-            android:gravity="center"
-            android:maxLines="1"
-            android:ellipsize="marquee"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:scrollHorizontally="true"
-            android:singleLine="true"/>
-
-    </LinearLayout>
-
-    <com.google.android.material.search.SearchBar
-        android:id="@+id/search"
+    <FrameLayout
+        android:id="@+id/frameMain"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:queryHint="@string/Srch"
-        android:iconifiedByDefault="false"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search">
+        app:layout_constraintStart_toStartOf="parent">
 
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -64,10 +30,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             app:menu="@menu/bottom_nav_menu" />
-
-
-
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 

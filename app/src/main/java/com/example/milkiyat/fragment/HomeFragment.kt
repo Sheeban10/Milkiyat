@@ -1,60 +1,113 @@
 package com.example.milkiyat.fragment
 
+import android.Manifest
+import android.app.Activity
+import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.milkiyat.R
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import java.util.Locale
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    lateinit var locText : TextView
+    lateinit var btnLocation : Button
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
+
+        locText = view.findViewById(R.id.locationText)
+
+        btnLocation = view.findViewById(R.id.btnLocation)
+
+        defaultLocationShow()
+
+        btnLocation.setOnClickListener {
+            location()
+        }
+
+        return view
+    }
+
+    private fun defaultLocationShow() {
+        val activityContext = activity ?: return
+        if (ContextCompat.checkSelfPermission(
+                activityContext, Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            location()
+        } else {
+            // Request location permission from the user
+            ActivityCompat.requestPermissions(
+                activityContext,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
+        }
+    }
+
+    private fun location() {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        val activityContext = activity ?: return
+
+        if (ContextCompat.checkSelfPermission(
+                activityContext, Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                if (location != null) {
+
+                    val geocoder = Geocoder(activityContext, Locale.getDefault())
+                    val address = geocoder.getFromLocation(
+                        location.latitude,
+                        location.longitude,
+                        1
+                    )
+                    if (address != null && address.isNotEmpty()) {
+                        val subCity = address[0].subLocality
+                        val city = address[0].locality
+                        val country = address[0].countryName
+
+                        // Log the retrieved location data for debugging
+                        Log.d("LocationData", "SubCity : $subCity, City: $city, Country: $country")
+
+                        locText.setText("$subCity, $city, $country")
+                    } else {
+                        Log.e("LocationData", "Geocoder data is not available")
+                    }
+                } else {
+                    Log.e("LocationData", "Location is not available")
+                    Toast.makeText(Activity(), "Location is not available", Toast.LENGTH_SHORT).show()
+                }
+            }
+        } else {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
+        }
+
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
 }

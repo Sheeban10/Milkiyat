@@ -91,6 +91,22 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        val currentuser = auth.currentUser
+        if (currentuser != null){
+            navigateToMainActivity()
+        }
+    }
+
+    private fun navigateToMainActivity() {
+        val locationData = "Area, City, Country"
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("locationData", locationData)
+        startActivity(intent)
+        finish()
+    }
+
     companion object {
         const val RC_SIGN_IN = 9001
     }

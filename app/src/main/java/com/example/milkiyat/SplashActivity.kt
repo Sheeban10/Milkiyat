@@ -12,12 +12,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.milkiyat.databinding.ActivitySplashBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class SplashActivity :AppCompatActivity() {
 
     private lateinit var binding: ActivitySplashBinding
     private val SPLASH_TIME_OUT: Long = 2700
     private val permissionRequestCode = 123
+    private lateinit var firebaseAuth: FirebaseAuth
 
     private val permissions = arrayOf(
         Manifest.permission.INTERNET,
@@ -67,7 +69,6 @@ class SplashActivity :AppCompatActivity() {
         Handler().postDelayed(
             {
                 val locationData = "Area, City, Country"
-
                 val intent = Intent(this, LoginActivity::class.java)
                 intent.putExtra("locationData", locationData)
                 startActivity(intent)
