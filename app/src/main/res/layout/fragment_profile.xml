@@ -10,7 +10,7 @@
        android:layout_width="match_parent"
        android:layout_height="match_parent">
 
-       <ImageView
+       <com.google.android.material.imageview.ShapeableImageView
            android:id="@+id/profileImage"
            android:layout_width="60dp"
            android:layout_height="60dp"
@@ -18,8 +18,7 @@
            app:layout_constraintStart_toStartOf="parent"
            app:layout_constraintTop_toTopOf="parent"
            android:layout_marginTop="30dp"
-           android:background="@drawable/ic_person"
-           style="@style/MyShapeStyle"/>
+           android:scaleType="centerCrop"/>
 
        <TextView
            android:id="@+id/userName"

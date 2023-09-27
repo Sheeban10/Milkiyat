@@ -40,7 +40,14 @@ class ProfileFragment : Fragment() {
         photoData = binding.profileImage
         val photoUrl = arguments?.getString("Photo")
         Log.d("ProfileFragment", "Pic received: $photoUrl")
-        Picasso.get().load(photoUrl).into(photoData)
+        if (photoUrl != null){
+            Glide.with(this)
+                .load(photoUrl)
+                .transform(CircleCrop())
+                .override(150, 150)
+                .into(photoData)
+        }
+        /*Picasso.get().load(photoUrl).placeholder(R.drawable.circular).into(photoData)*/
 
 
 
