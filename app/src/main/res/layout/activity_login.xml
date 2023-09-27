@@ -25,7 +25,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/lightSeaGreen"
+        android:backgroundTint="@color/lightSeaGreen"
+        android:background="@drawable/outline_box"
+        android:padding="2dp"
         app:layout_constraintTop_toBottomOf="@+id/anim_login">
 
         <com.airbnb.lottie.LottieAnimationView
@@ -41,6 +43,7 @@
             app:lottie_rawRes="@raw/gsi" />
 
         <TextView
+            android:paddingRight="4dp"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:text="@string/GSI"

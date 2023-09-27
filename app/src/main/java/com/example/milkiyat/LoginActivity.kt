@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.milkiyat.databinding.ActivityLoginBinding
+import com.example.milkiyat.fragment.ProfileFragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -43,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
 
 
         if (auth.currentUser != null) {
-            startMainActivity()
+            startMainActivity(auth.currentUser!!)
         } else {
             binding.gsiButton.setOnClickListener {
                 signIn()
@@ -73,8 +74,7 @@ class LoginActivity : AppCompatActivity() {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
-                        val user = auth.currentUser
-                        startMainActivity()
+                        auth.currentUser?.let { startMainActivity(it) }
                     } else {
                         Toast.makeText(this,"Sign-In failed",Toast.LENGTH_SHORT).show()
                     }
@@ -84,8 +84,12 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun startMainActivity(){
+    private fun startMainActivity(user: FirebaseUser){
+        val username = user.displayName
+        val photo = user.photoUrl?.toString()
         val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("name", username)
+        intent.putExtra("photo", photo)
         startActivity(intent)
         finish()
 
@@ -95,17 +99,10 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
         val currentuser = auth.currentUser
         if (currentuser != null){
-            navigateToMainActivity()
+            startMainActivity(currentuser)
         }
     }
 
-    private fun navigateToMainActivity() {
-        val locationData = "Area, City, Country"
-        val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("locationData", locationData)
-        startActivity(intent)
-        finish()
-    }
 
     companion object {
         const val RC_SIGN_IN = 9001

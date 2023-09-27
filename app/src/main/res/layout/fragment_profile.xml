@@ -1,14 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+   <androidx.constraintlayout.widget.ConstraintLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+       <ImageView
+           android:id="@+id/profileImage"
+           android:layout_width="60dp"
+           android:layout_height="60dp"
+           android:layout_marginStart="20dp"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="parent"
+           android:layout_marginTop="30dp"
+           android:background="@drawable/ic_person"
+           style="@style/MyShapeStyle"/>
+
+       <TextView
+           android:id="@+id/userName"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="YourName"
+           android:textColor="@color/black"
+           android:textSize="18sp"
+           android:textStyle="bold|italic"
+           android:layout_marginTop="45dp"
+           android:layout_marginStart="10dp"
+           app:layout_constraintStart_toEndOf="@+id/profileImage"
+           app:layout_constraintTop_toTopOf="parent" />
+
+
+       <com.google.android.material.button.MaterialButton
+           android:id="@+id/logout"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_margin="20dp"
+           android:text="LOGOUT"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent" />
+
+
+
+   </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
