@@ -2,6 +2,7 @@ package com.example.milkiyat.fragment
 
 import android.Manifest
 import android.app.Activity
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Geocoder
@@ -16,9 +17,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.milkiyat.R
+import com.example.milkiyat.adapter.HomeCategoriesAdapter
+import com.example.milkiyat.model.Categories
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Locale
 
 class HomeFragment : Fragment() {
@@ -27,14 +34,22 @@ class HomeFragment : Fragment() {
     lateinit var btnLocation : Button
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
+    private lateinit var recyclerCategories: RecyclerView
+    private lateinit var layoutManager:RecyclerView.LayoutManager
+
+    lateinit var categoriesRecyclerAdapter : HomeCategoriesAdapter
+    private lateinit var categoriesList: ArrayList<Categories>
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        locText = view.findViewById(R.id.locationText)
+        val dbCategories = FirebaseFirestore.getInstance()
 
+        locText = view.findViewById(R.id.locationText)
         btnLocation = view.findViewById(R.id.btnLocation)
 
         defaultLocationShow()
@@ -42,6 +57,35 @@ class HomeFragment : Fragment() {
         btnLocation.setOnClickListener {
             location()
         }
+
+
+        categoriesRecyclerAdapter = HomeCategoriesAdapter(categoriesList)
+        recyclerCategories.layoutManager = layoutManager
+        recyclerCategories.adapter = categoriesRecyclerAdapter
+
+        /*recyclerCategories = view.findViewById(R.id.rvCategories)
+        layoutManager = LinearLayoutManager(activity)*/
+
+
+        val categoriesRef = dbCategories.collection("categories")
+
+        categoriesRef.get()
+            .addOnSuccessListener { result ->
+                val categoriesList = ArrayList<Categories>()
+                for (document in result) {
+                    val category = document.toObject(Categories::class.java)
+                    categoriesList.add(category)
+                }
+                Log.d(TAG, "Categories List Size: ${categoriesList.size}")
+
+                // Create and set the RecyclerView adapter
+                categoriesRecyclerAdapter = HomeCategoriesAdapter(categoriesList)
+                recyclerCategories.adapter = categoriesRecyclerAdapter
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error getting categories", e)
+            }
+
 
         return view
     }
