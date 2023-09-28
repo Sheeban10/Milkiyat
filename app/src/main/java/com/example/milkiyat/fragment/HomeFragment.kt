@@ -59,12 +59,9 @@ class HomeFragment : Fragment() {
         }
 
 
-        categoriesRecyclerAdapter = HomeCategoriesAdapter(categoriesList)
-        recyclerCategories.layoutManager = layoutManager
-        recyclerCategories.adapter = categoriesRecyclerAdapter
 
-        /*recyclerCategories = view.findViewById(R.id.rvCategories)
-        layoutManager = LinearLayoutManager(activity)*/
+        recyclerCategories = view.findViewById(R.id.rvCategories)
+        layoutManager = GridLayoutManager(activity, 2)
 
 
         val categoriesRef = dbCategories.collection("categories")
@@ -81,6 +78,7 @@ class HomeFragment : Fragment() {
                 // Create and set the RecyclerView adapter
                 categoriesRecyclerAdapter = HomeCategoriesAdapter(categoriesList)
                 recyclerCategories.adapter = categoriesRecyclerAdapter
+                recyclerCategories.layoutManager = layoutManager
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error getting categories", e)
