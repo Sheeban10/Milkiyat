@@ -38,16 +38,14 @@ class HomeFragment : Fragment() {
     private lateinit var layoutManager:RecyclerView.LayoutManager
 
     lateinit var categoriesRecyclerAdapter : HomeCategoriesAdapter
-    private lateinit var categoriesList: ArrayList<Categories>
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        val dbCategories = FirebaseFirestore.getInstance()
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         locText = view.findViewById(R.id.locationText)
         btnLocation = view.findViewById(R.id.btnLocation)
@@ -58,12 +56,22 @@ class HomeFragment : Fragment() {
             location()
         }
 
-
-
         recyclerCategories = view.findViewById(R.id.rvCategories)
-        layoutManager = GridLayoutManager(activity, 2)
+        layoutManager = GridLayoutManager(activity, 4)
+
+        getFirebaseCategories()
 
 
+
+
+        return view
+    }
+
+    private fun getFirebaseCategories() {
+
+
+
+        val dbCategories = FirebaseFirestore.getInstance()
         val categoriesRef = dbCategories.collection("categories")
 
         categoriesRef.get()
@@ -84,8 +92,6 @@ class HomeFragment : Fragment() {
                 Log.w(TAG, "Error getting categories", e)
             }
 
-
-        return view
     }
 
     private fun defaultLocationShow() {

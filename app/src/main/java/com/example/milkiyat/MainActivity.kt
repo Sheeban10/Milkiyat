@@ -20,23 +20,36 @@ class MainActivity : AppCompatActivity() {
     lateinit var frameLayout : FrameLayout
     var previousMenuItem : MenuItem? = null
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
-        homeFragment()
-
-        val name = intent.getStringExtra("name")
-        val photo = intent.getStringExtra("photo")
-        Log.d("photo", "photo received $name")
-        Log.d("photo", "photo received $photo")
+        if (savedInstanceState != null) {
+            val selectedFragment = savedInstanceState.getInt("selectedFragment")
+        } else {
+            homeFragment()
+        }
 
 
         bottomNav = binding.btmAppbar
         frameLayout = binding.frameMain
 
+
+       bottomNavOnItemSelect()
+
+
+    }
+
+    private fun bottomNavOnItemSelect(){
+
+        val name = intent.getStringExtra("name")
+        val photo = intent.getStringExtra("photo")
+        Log.d("photo", "photo received $name")
+        Log.d("photo", "photo received $photo")
 
         bottomNav.setOnItemSelectedListener {
             when(it.itemId){
@@ -49,6 +62,7 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.frameMain, MessagesFragment())
                         .commit()
+
                 }
 
                 R.id.notifications -> {
@@ -71,7 +85,6 @@ class MainActivity : AppCompatActivity() {
             return@setOnItemSelectedListener true
         }
 
-
     }
 
     private fun homeFragment() {
@@ -79,6 +92,23 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.frameMain, HomeFragment())
             .commit()
+    }
+
+    override fun onBackPressed() {
+        val frag =supportFragmentManager.findFragmentById(R.id.frameMain)
+
+        when(frag){
+            !is HomeFragment ->homeFragment()
+
+
+            else -> super.onBackPressed()
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        // Save the current fragment's tag or ID
+        outState.putInt("selectedFragment", bottomNav.selectedItemId)
+        super.onSaveInstanceState(outState)
     }
 
 }

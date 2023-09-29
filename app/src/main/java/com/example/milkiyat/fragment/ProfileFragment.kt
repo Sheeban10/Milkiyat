@@ -28,6 +28,8 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         binding = FragmentProfileBinding.inflate(layoutInflater)
         val view = binding.root
 
