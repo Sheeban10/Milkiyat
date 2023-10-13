@@ -57,12 +57,9 @@ class HomeFragment : Fragment() {
         }
 
         recyclerCategories = view.findViewById(R.id.rvCategories)
-        layoutManager = GridLayoutManager(activity, 4)
+        layoutManager = GridLayoutManager(activity, 2)
 
         getFirebaseCategories()
-
-
-
 
         return view
     }
