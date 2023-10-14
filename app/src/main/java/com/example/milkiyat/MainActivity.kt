@@ -36,6 +36,8 @@ class MainActivity : AppCompatActivity() {
 
 
         bottomNav = binding.btmAppbar
+        bottomNav.background = null /*to disable shadow of background in bottom nav*/
+        bottomNav.menu.getItem(2).isEnabled = false /*to make menu item unclickable*/
         frameLayout = binding.frameMain
 
 
