@@ -65,8 +65,8 @@ class HomeFragment : Fragment() {
         layoutManager = GridLayoutManager(activity, 2)
         getFirebaseCategories()
 
-        recyclerItemList = view.findViewById(R.id.rvItemList)
-        layoutManager = GridLayoutManager(activity, 2)
+        /*recyclerItemList = view.findViewById(R.id.rvItemList)
+        layoutManager = GridLayoutManager(activity, 2)*/
 
 
         return view

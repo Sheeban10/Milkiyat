@@ -1,23 +1,30 @@
 package com.example.milkiyat
 
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.widget.FrameLayout
+import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
+import androidx.cardview.widget.CardView
+import com.bumptech.glide.Glide.init
 import com.example.milkiyat.databinding.ActivityMainBinding
 import com.example.milkiyat.fragment.HomeFragment
 import com.example.milkiyat.fragment.MessagesFragment
 import com.example.milkiyat.fragment.NotificationsFragment
 import com.example.milkiyat.fragment.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     lateinit var bottomNav : BottomNavigationView
     lateinit var frameLayout : FrameLayout
+    lateinit var btnAdd : FloatingActionButton
     var previousMenuItem : MenuItem? = null
 
 
@@ -43,6 +50,41 @@ class MainActivity : AppCompatActivity() {
 
        bottomNavOnItemSelect()
 
+        btnAdd = binding.fabAdd
+
+        btnAdd.setOnClickListener {
+            fabAdd()
+        }
+
+
+    }
+
+    private fun fabAdd() {
+
+        val addChoiceView = LayoutInflater.from(this).inflate(R.layout.add_item_dialog, null)
+        val addChoice = AlertDialog.Builder(this)
+                        .setView(addChoiceView)
+                        .setTitle("Choose Category")
+                        .show()
+
+        val houseAdd = addChoiceView.findViewById<CardView>(R.id.imgHouseDialog)
+        val landAdd = addChoiceView.findViewById<CardView>(R.id.imgLandDialog)
+
+        houseAdd.setOnClickListener {
+            houseAdd()
+        }
+
+        landAdd.setOnClickListener {
+            landAdd()
+        }
+
+    }
+
+    private fun houseAdd(){
+
+    }
+
+    private fun landAdd(){
 
     }
 

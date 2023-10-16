@@ -52,7 +52,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/llLocation"
             app:layout_constraintBottom_toTopOf="@id/scrollHorizon"
-            android:background="@drawable/outlibe_box_filled"
             android:layout_margin="10dp">
 
             <SearchView

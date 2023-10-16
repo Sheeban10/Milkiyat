@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:weightSum="1"
+    android:orientation="horizontal"
+    android:padding="20dp"
+    android:layout_margin="10dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/imgHouseDialog"
+        android:layout_width="0dp"
+        android:layout_height="180dp"
+        android:layout_weight="0.5"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="30dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/house"
+            android:padding="30dp"
+            android:background="@color/seaGreen"/>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/imgLandDialog"
+        android:layout_width="0dp"
+        android:layout_height="180dp"
+        android:layout_weight="0.5"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="30dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/land"
+            android:padding="30dp"
+            android:background="@color/seaGreen"/>
+
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
