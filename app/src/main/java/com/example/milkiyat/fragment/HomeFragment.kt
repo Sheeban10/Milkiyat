@@ -3,10 +3,8 @@ package com.example.milkiyat.fragment
 import android.Manifest
 import android.app.Activity
 import android.content.ContentValues.TAG
-import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Geocoder
-import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -18,9 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.milkiyat.R
 import com.example.milkiyat.adapter.HomeCategoriesAdapter
@@ -141,7 +137,9 @@ class HomeFragment : Fragment() {
                         // Log the retrieved location data for debugging
                         Log.d("LocationData", "SubCity : $subCity, City: $city, Country: $country")
 
-                        locText.setText("$subCity, $city, $pincode")
+                        val locDetails = "$subCity, $city, $pincode"
+                        locText.setText(locDetails)
+
                     } else {
                         Log.e("LocationData", "Geocoder data is not available")
                     }

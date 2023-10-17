@@ -2,16 +2,15 @@ package com.example.milkiyat
 
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.widget.FrameLayout
-import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
-import com.bumptech.glide.Glide.init
 import com.example.milkiyat.databinding.ActivityMainBinding
 import com.example.milkiyat.fragment.HomeFragment
 import com.example.milkiyat.fragment.MessagesFragment
@@ -72,20 +71,26 @@ class MainActivity : AppCompatActivity() {
 
         houseAdd.setOnClickListener {
             houseAdd()
+            addChoice.hide()
         }
 
         landAdd.setOnClickListener {
             landAdd()
+            addChoice.hide()
         }
 
     }
 
     private fun houseAdd(){
 
+        val intent = Intent(this, AddLocation::class.java)
+        startActivity(intent)
+
     }
 
     private fun landAdd(){
-
+        val intent = Intent(this , AddLocation::class.java)
+        startActivity(intent)
     }
 
     private fun bottomNavOnItemSelect(){
@@ -132,9 +137,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun homeFragment() {
+
+        val homeFragment = HomeFragment()
         Log.d("MainActivity", "Home item selected")
         supportFragmentManager.beginTransaction()
-            .replace(R.id.frameMain, HomeFragment())
+            .replace(R.id.frameMain, homeFragment)
             .commit()
     }
 
