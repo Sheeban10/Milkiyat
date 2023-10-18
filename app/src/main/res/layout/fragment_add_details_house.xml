@@ -50,7 +50,7 @@
             android:id="@+id/tlDescription"
             android:layout_width="match_parent"
             android:layout_height="110dp"
-            android:hint="@string/enter_brief_about"
+            android:hint="@string/enter_full_description_of_house"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tlAbout"
@@ -69,6 +69,43 @@
                 android:maxLength="500"/>
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tlPrice"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/enter_price"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tlDescription"
+            android:layout_margin="20dp"
+            app:boxBackgroundMode="none"
+            android:background="@drawable/outline_box"
+            android:theme="@style/ThemeOverlay.Material3">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPrice"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="18sp"
+                android:padding="4dp"
+                android:maxLines="2"
+                android:inputType="number" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tlPrice"
+            android:backgroundTint="@color/seaGreen"
+            android:text="@string/next"
+            android:textColor="@color/black"
+            android:textStyle="bold|italic"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

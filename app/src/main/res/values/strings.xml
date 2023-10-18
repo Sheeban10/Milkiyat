@@ -15,4 +15,7 @@
     <string name="type_location_here">Type Location Here</string>
     <string name="next"><![CDATA[Next ->]]></string>
     <string name="enter_brief_about">Enter Brief About</string>
+    <string name="enter_full_description_of_house">Enter Full Description of House</string>
+    <string name="enter_price">Enter Price</string>
+    <string name="enter_full_description_of_land">Enter Full Description of Land</string>
 </resources>
