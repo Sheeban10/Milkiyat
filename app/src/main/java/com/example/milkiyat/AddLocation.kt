@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.milkiyat.databinding.ActivityAddLocationBinding
 import com.example.milkiyat.fragment.AddDetailsHouseFragment
+import com.example.milkiyat.fragment.AddDetailsLandFragment
 import com.example.milkiyat.fragment.HomeFragment
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -41,15 +42,24 @@ class AddLocation: AppCompatActivity() {
             location()
         }
 
-
         binding.btnNext.setOnClickListener {
-            addDetailsHouse()
+            val selectedCategory = intent.getStringExtra("category")
+
+            if (locationText.text.isNotEmpty()) {
+                when (selectedCategory) {
+                    "House" -> addHouseDetails()
+                    "Land" -> addLandDetails()
+                }
+            } else{
+                Toast.makeText(this, "Please Enter Location to Continue", Toast.LENGTH_SHORT).show()
+            }
         }
 
         setContentView(view)
     }
 
-    private fun addDetailsHouse() {
+
+    private fun addHouseDetails() {
 
         val loc = binding.locationPage
         loc.visibility = View.GONE
@@ -60,6 +70,21 @@ class AddLocation: AppCompatActivity() {
         houseDetails.arguments = bundle
         supportFragmentManager.beginTransaction()
             .replace(R.id.frameLayout ,houseDetails)
+            .commit()
+
+    }
+
+    private fun addLandDetails() {
+
+        val loc = binding.locationPage
+        loc.visibility = View.GONE
+
+        val landDetails = AddDetailsLandFragment()
+        val bundle = Bundle()
+        bundle.putString("locationData", locationText.toString())
+        landDetails.arguments = bundle
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frameLayout ,landDetails)
             .commit()
 
     }

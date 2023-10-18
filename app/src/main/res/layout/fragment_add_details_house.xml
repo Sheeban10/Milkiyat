@@ -3,12 +3,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.AddDetailsHouseFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/locationText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="10dp"
+            android:maxLines="1"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tlAbout"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/enter_brief_about"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/locationText"
+            android:layout_margin="20dp"
+            app:boxBackgroundMode="none"
+            android:background="@drawable/outline_box"
+            android:theme="@style/ThemeOverlay.Material3">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAboutHouse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="18sp"
+                android:padding="4dp"
+                android:maxLines="2"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tlDescription"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:hint="@string/enter_brief_about"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tlAbout"
+            android:layout_margin="20dp"
+            app:boxBackgroundMode="none"
+            android:background="@drawable/outline_box"
+            android:theme="@style/ThemeOverlay.Material3">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDescriptionHouse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="18sp"
+                android:padding="4dp"
+                android:gravity="start"
+                android:maxLength="500"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

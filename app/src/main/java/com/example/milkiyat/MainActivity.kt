@@ -81,15 +81,17 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun houseAdd(){
+     fun houseAdd(){
 
         val intent = Intent(this, AddLocation::class.java)
+         intent.putExtra("category", "House")
         startActivity(intent)
 
     }
 
-    private fun landAdd(){
+     fun landAdd(){
         val intent = Intent(this , AddLocation::class.java)
+         intent.putExtra("category", "Land")
         startActivity(intent)
     }
 
