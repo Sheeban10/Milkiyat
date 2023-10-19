@@ -33,6 +33,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/outline_box"
+            android:backgroundTint="@color/lightSeaGreen"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvLocation"
@@ -79,6 +80,7 @@
                 android:id="@+id/locationText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:singleLine="true"
                 android:textSize="16sp"
                 android:padding="4dp"/>

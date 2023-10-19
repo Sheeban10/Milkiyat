@@ -68,9 +68,11 @@ class AddLocation: AppCompatActivity() {
         val bundle = Bundle()
         bundle.putString("locationData", locationText.text.toString())
         houseDetails.arguments = bundle
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.frameLayout ,houseDetails)
-            .commit()
+        val transaction = supportFragmentManager.beginTransaction()
+
+            transaction.replace(R.id.frameLayout ,houseDetails)
+            transaction.commit()
+
 
     }
 
@@ -81,9 +83,11 @@ class AddLocation: AppCompatActivity() {
 
         val landDetails = AddDetailsLandFragment()
         val bundle = Bundle()
-        bundle.putString("locationData", locationText.toString())
+        bundle.putString("locationData", locationText.text.toString())
         landDetails.arguments = bundle
-        supportFragmentManager.beginTransaction()
+        val transaction = supportFragmentManager.beginTransaction()
+
+             transaction
             .replace(R.id.frameLayout ,landDetails)
             .commit()
 
@@ -140,4 +144,6 @@ class AddLocation: AppCompatActivity() {
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
+
+
 }

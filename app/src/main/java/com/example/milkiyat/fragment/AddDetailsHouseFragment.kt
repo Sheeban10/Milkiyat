@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.milkiyat.AddLocation
 import com.example.milkiyat.R
 import com.example.milkiyat.databinding.FragmentAddDetailsHouseBinding
 
@@ -37,15 +38,18 @@ class AddDetailsHouseFragment : Fragment() {
     private fun uploadImages() {
         val imagesFragment = AddPhotosFragment()
         val bundle = Bundle()
+        bundle.putString("location", binding.locationText.text.toString())
         bundle.putString("title", binding.etTitle.text.toString())
         bundle.putString("description", binding.etDescriptionHouse.text.toString())
         bundle.putString("price", binding.etPrice.text.toString())
-
         imagesFragment.arguments = bundle
 
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.frameLayout, imagesFragment)
-            .commit()
+        val transactionFragment = parentFragmentManager.beginTransaction()
+
+            transactionFragment.replace(R.id.frameLayout, imagesFragment)
+            transactionFragment.addToBackStack(null)
+            transactionFragment.commit()
+
     }
 
 
