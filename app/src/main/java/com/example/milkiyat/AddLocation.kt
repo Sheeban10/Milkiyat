@@ -66,7 +66,7 @@ class AddLocation: AppCompatActivity() {
 
         val houseDetails = AddDetailsHouseFragment()
         val bundle = Bundle()
-        bundle.putString("locationData", locationText.toString())
+        bundle.putString("locationData", locationText.text.toString())
         houseDetails.arguments = bundle
         supportFragmentManager.beginTransaction()
             .replace(R.id.frameLayout ,houseDetails)

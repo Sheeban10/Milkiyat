@@ -27,7 +27,7 @@
                 android:id="@+id/tlAbout"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:hint="@string/enter_brief_about"
+                android:hint="@string/enter_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/locationText"
@@ -37,7 +37,7 @@
                 android:theme="@style/ThemeOverlay.Material3">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etAboutHouse"
+                    android:id="@+id/etTitle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textSize="18sp"
