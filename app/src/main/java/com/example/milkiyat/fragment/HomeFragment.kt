@@ -48,7 +48,7 @@ class HomeFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        locText = view.findViewById(R.id.locationText)
+        locText = view.findViewById(R.id.tvLocationText)
         btnLocation = view.findViewById(R.id.btnLocation)
 
         defaultLocationShow()

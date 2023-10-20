@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/locationText"
+            android:id="@+id/tvLocationText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"
@@ -31,7 +31,7 @@
             android:hint="@string/enter_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/locationText"
+            app:layout_constraintTop_toBottomOf="@+id/tvLocationText"
             android:layout_margin="20dp"
             app:boxBackgroundMode="none"
             android:background="@drawable/outline_box"

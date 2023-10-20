@@ -4,6 +4,7 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.milkiyat.R
 import com.example.milkiyat.adapter.UploadImagesAdapter
 import com.example.milkiyat.databinding.FragmentAddPhotosBinding
 
@@ -35,9 +37,33 @@ class AddPhotosFragment : Fragment() {
 
         binding.tvImageDelete.visibility = View.INVISIBLE
 
-
         binding.btnAddImages.setOnClickListener {
             pickImagesFromGallery()
+        }
+
+        val locationText = arguments?.getString("location")
+        val etTitle = arguments?.getString("title")
+        val etDescriptionHouse = arguments?.getString("description")
+        val etPrice = arguments?.getString("price")
+
+        Log.d("Details", "$locationText, $etTitle, $etDescriptionHouse, $etPrice")
+
+        binding.btnNext.setOnClickListener {
+            val finalDetailsFragment = FinalDetailsFragment()
+            val bundle = Bundle()
+            bundle.putString("location", locationText.toString())
+            bundle.putString("title", etTitle.toString())
+            bundle.putString("description", etDescriptionHouse.toString())
+            bundle.putString("price", etPrice.toString())
+
+            finalDetailsFragment.arguments = bundle
+            val transactionFragment = parentFragmentManager.beginTransaction()
+
+            transactionFragment
+                .replace(R.id.frameLayout, finalDetailsFragment)
+                .commit()
+
+            transactionFragment.addToBackStack(null)
         }
 
 

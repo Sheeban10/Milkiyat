@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.milkiyat.R
 import com.squareup.picasso.Picasso
@@ -12,7 +13,8 @@ import com.squareup.picasso.Picasso
 class UploadImagesAdapter(val imageList : ArrayList<Uri>) : RecyclerView.Adapter<UploadImagesAdapter.UploadImagesViewHolder>() {
 
     class UploadImagesViewHolder(view : View) : RecyclerView.ViewHolder(view){
-        val uploadImage : ImageView = itemView.findViewById(R.id.rvUploadImages)
+        val image_layout = itemView.findViewById<CardView>(R.id.cardViewUploadImage)
+        val uploadImage : ImageView = itemView.findViewById(R.id.rvItemUploadImages)
 
     }
 
@@ -36,6 +38,7 @@ class UploadImagesAdapter(val imageList : ArrayList<Uri>) : RecyclerView.Adapter
             notifyDataSetChanged()
             true
         }
+
 
 
     }
