@@ -1,7 +1,6 @@
 package com.example.milkiyat
 
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -83,14 +82,14 @@ class MainActivity : AppCompatActivity() {
 
      fun houseAdd(){
 
-        val intent = Intent(this, AddLocation::class.java)
+        val intent = Intent(this, AddItem::class.java)
          intent.putExtra("category", "House")
         startActivity(intent)
 
     }
 
      fun landAdd(){
-        val intent = Intent(this , AddLocation::class.java)
+        val intent = Intent(this , AddItem::class.java)
          intent.putExtra("category", "Land")
         startActivity(intent)
     }
