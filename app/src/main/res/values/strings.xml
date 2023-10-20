@@ -18,4 +18,6 @@
     <string name="enter_full_description_of_house">Enter Full Description of House</string>
     <string name="enter_price">Enter Price</string>
     <string name="enter_full_description_of_land">Enter Full Description of Land</string>
+    <string name="click_upload_images">Click To Upload Images</string>
+    <string name="long_click_on_image_to_remove">Long Click on Image To Remove</string>
 </resources>

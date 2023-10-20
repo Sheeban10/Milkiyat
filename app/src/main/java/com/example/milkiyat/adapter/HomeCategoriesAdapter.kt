@@ -18,7 +18,7 @@ class HomeCategoriesAdapter(val itemList : ArrayList<Categories>) : RecyclerView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.categories_list, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.rv_categories_list, parent, false)
 
         return CategoriesViewHolder(view)
     }

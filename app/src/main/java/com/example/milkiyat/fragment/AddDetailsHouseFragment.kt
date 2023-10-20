@@ -44,10 +44,10 @@ class AddDetailsHouseFragment : Fragment() {
 
         val transactionFragment = parentFragmentManager.beginTransaction()
 
-            transactionFragment.replace(R.id.frameLayout, imagesFragment)
-            transactionFragment.addToBackStack(null)
-            transactionFragment.commit()
-
+            transactionFragment
+                .replace(R.id.frameLayout, imagesFragment)
+                .commit()
+        transactionFragment.addToBackStack(null)
     }
 
 

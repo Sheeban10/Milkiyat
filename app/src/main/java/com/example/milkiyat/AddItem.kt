@@ -12,8 +12,6 @@ import com.google.android.gms.location.FusedLocationProviderClient
 class AddItem: AppCompatActivity() {
 
     private lateinit var binding: ActivityAddLocationBinding
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-    lateinit var locationText : EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +30,6 @@ class AddItem: AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.frameLayout, addLocationFragment)
             .commit()
-
-
 
         setContentView(view)
     }
