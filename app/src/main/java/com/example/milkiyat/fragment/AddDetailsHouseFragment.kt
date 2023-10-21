@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.milkiyat.R
 import com.example.milkiyat.databinding.FragmentAddDetailsHouseBinding
 
@@ -23,10 +24,16 @@ class AddDetailsHouseFragment : Fragment() {
 
         val locationData = arguments?.getString("locationData").toString()
         /*Log.d("location Data final", "$locationData")*/
-        binding.locationText.text = locationData
+        binding.tvLocationText.text = locationData
+
+
 
         binding.btnNext.setOnClickListener {
-            uploadImages()
+            if (binding.etTitle.text!!.isNotEmpty() && binding.etDescriptionHouse.text!!.isNotEmpty() && binding.etPrice.text!!.isNotEmpty()) {
+                uploadImages()
+            } else {
+                Toast.makeText(requireContext(), "Please fill all details", Toast.LENGTH_LONG).show()
+            }
         }
 
 
@@ -34,9 +41,12 @@ class AddDetailsHouseFragment : Fragment() {
     }
 
     private fun uploadImages() {
+
+        val category = arguments?.getString("category")
         val imagesFragment = AddPhotosFragment()
         val bundle = Bundle()
-        bundle.putString("location", binding.locationText.text.toString())
+        bundle.putString("category", category)
+        bundle.putString("location", binding.tvLocationText.text.toString())
         bundle.putString("title", binding.etTitle.text.toString())
         bundle.putString("description", binding.etDescriptionHouse.text.toString())
         bundle.putString("price", binding.etPrice.text.toString())
@@ -44,7 +54,7 @@ class AddDetailsHouseFragment : Fragment() {
 
         val transactionFragment = parentFragmentManager.beginTransaction()
 
-            transactionFragment
+        transactionFragment
                 .replace(R.id.frameLayout, imagesFragment)
                 .commit()
         transactionFragment.addToBackStack(null)

@@ -45,16 +45,20 @@ class AddPhotosFragment : Fragment() {
         val etTitle = arguments?.getString("title")
         val etDescriptionHouse = arguments?.getString("description")
         val etPrice = arguments?.getString("price")
+        val category = arguments?.getString("category")
 
-        Log.d("Details", "$locationText, $etTitle, $etDescriptionHouse, $etPrice")
+        Log.d("Details", "$category, $locationText, $etTitle, $etDescriptionHouse, $etPrice")
 
         binding.btnNext.setOnClickListener {
+
             val finalDetailsFragment = FinalDetailsFragment()
             val bundle = Bundle()
+            bundle.putString("category", category)
             bundle.putString("location", locationText.toString())
             bundle.putString("title", etTitle.toString())
             bundle.putString("description", etDescriptionHouse.toString())
             bundle.putString("price", etPrice.toString())
+            bundle.putParcelableArrayList("images",selectedImages)
 
             finalDetailsFragment.arguments = bundle
             val transactionFragment = parentFragmentManager.beginTransaction()

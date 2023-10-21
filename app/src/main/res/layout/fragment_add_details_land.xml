@@ -61,7 +61,7 @@
                 android:theme="@style/ThemeOverlay.Material3">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etDescriptionHouse"
+                    android:id="@+id/etDescriptionLand"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textColor="@color/black"

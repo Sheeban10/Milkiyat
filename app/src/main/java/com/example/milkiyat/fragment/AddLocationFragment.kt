@@ -34,7 +34,7 @@ class AddLocationFragment : Fragment() {
         binding = FragmentAddLocationBinding.inflate(layoutInflater)
         val view = binding.root
 
-        locationText = binding.locationText
+        locationText = binding.tvLocationText
         val selectedCategory = arguments?.getString("category")
         Log.d("category", "$selectedCategory")
 
@@ -59,11 +59,13 @@ class AddLocationFragment : Fragment() {
 
     private fun addHouseDetails() {
 
+        val selectedCategory = arguments?.getString("category")
         val loc = binding.locationPage
         loc.visibility = View.GONE
 
         val houseDetails = AddDetailsHouseFragment()
         val bundle = Bundle()
+        bundle.putString("category", selectedCategory)
         bundle.putString("locationData", locationText.text.toString())
         houseDetails.arguments = bundle
         val transaction = parentFragmentManager.beginTransaction()
@@ -79,11 +81,13 @@ class AddLocationFragment : Fragment() {
 
     private fun addLandDetails() {
 
+        val category = arguments?.getString("category")
         val loc = binding.locationPage
         loc.visibility = View.GONE
 
         val landDetails = AddDetailsLandFragment()
         val bundle = Bundle()
+        bundle.putString("category", category)
         bundle.putString("locationData", locationText.text.toString())
         landDetails.arguments = bundle
         val transaction = parentFragmentManager.beginTransaction()
