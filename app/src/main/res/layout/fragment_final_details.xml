@@ -217,6 +217,23 @@
             android:backgroundTint="@color/lightSeaGreen"
             android:backgroundTintMode="src_over"/>
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/success"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_rawRes="@raw/success"
+            android:backgroundTint="@color/lightSeaGreen"
+            android:backgroundTintMode="src_over"/>
+
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

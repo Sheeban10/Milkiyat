@@ -4,11 +4,13 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.milkiyat.MainActivity
@@ -33,6 +35,8 @@ class FinalDetailsFragment : Fragment() {
 
         val loadingLayout = binding.llLoading
         val loading = binding.lottieLoading
+        val success = binding.success
+        success.visibility = View.INVISIBLE
         loadingLayout.visibility = View.INVISIBLE
         loading.visibility = View.INVISIBLE
 
@@ -93,10 +97,19 @@ class FinalDetailsFragment : Fragment() {
         docRef.set(data)
             .addOnSuccessListener {
                 Log.d(TAG, "Item added successfully!")
-                binding.llLoading.visibility = View.INVISIBLE
+                binding.success.visibility = View.VISIBLE
                     binding.lottieLoading.visibility = View.INVISIBLE
-                val intent = Intent(requireContext(), MainActivity::class.java)
-                startActivity(intent)
+                Handler().postDelayed({
+                    val intent = Intent(requireContext(), MainActivity::class.java)
+                    startActivity(intent)
+                }, 3000
+                )
+
+            }
+            .addOnFailureListener {
+                binding.llLoading.visibility = View.INVISIBLE
+                binding.lottieLoading.visibility = View.INVISIBLE
+                Toast.makeText(requireContext(), "Failed to upload", Toast.LENGTH_SHORT).show()
             }
     }
 
