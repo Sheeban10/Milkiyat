@@ -1,8 +1,10 @@
 package com.example.milkiyat.model
 
+import android.net.Uri
+
 
 data class ItemDetails(
-    val itemId : String = "",
+    val images : ArrayList<Uri>,
     val category : String = "",
     val location : String = "",
     val title : String = "",

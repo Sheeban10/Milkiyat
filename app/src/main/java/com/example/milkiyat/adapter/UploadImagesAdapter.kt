@@ -33,7 +33,7 @@ class UploadImagesAdapter(val imageList : ArrayList<Uri>) : RecyclerView.Adapter
         val imageUrl = imageList[position]
         Picasso.get().load(imageUrl).into(holder.uploadImage)
 
-        holder.uploadImage.setOnLongClickListener {
+        holder.image_layout.setOnLongClickListener {
             imageList.remove(imageUrl)
             notifyDataSetChanged()
             true

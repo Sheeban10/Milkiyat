@@ -1,5 +1,7 @@
 package com.example.milkiyat.fragment
 
+import android.content.ContentValues.TAG
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -9,9 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.milkiyat.R
+import com.example.milkiyat.MainActivity
 import com.example.milkiyat.adapter.UploadImagesAdapter
 import com.example.milkiyat.databinding.FragmentFinalDetailsBinding
+import com.example.milkiyat.model.ItemDetails
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class FinalDetailsFragment : Fragment() {
@@ -26,6 +30,11 @@ class FinalDetailsFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentFinalDetailsBinding.inflate(layoutInflater)
         val view = binding.root
+
+        val loadingLayout = binding.llLoading
+        val loading = binding.lottieLoading
+        loadingLayout.visibility = View.INVISIBLE
+        loading.visibility = View.INVISIBLE
 
         val rvImagesUploaded = binding.rvUploadImage
 
@@ -48,10 +57,47 @@ class FinalDetailsFragment : Fragment() {
         rvImagesUploaded.adapter = uploadImagesAdapter
 
         binding.btnPost.setOnClickListener {
+            loadingLayout.visibility = View.VISIBLE
+            loading.visibility = View.VISIBLE
+
+            val itemDetails = ItemDetails(
+                images = images,
+                category = category!!,
+                location = locationText!!,
+                title = etTitle!!,
+                description = etDescription!!,
+                price = etPrice!!
+            )
+            addItemToFirestore(itemDetails)
+
+
 
         }
 
         return view
+    }
+
+    private fun addItemToFirestore(itemDetails: ItemDetails) {
+        val db = FirebaseFirestore.getInstance()
+
+        val docRef =db.collection("ItemDetails").document()
+
+        val data = hashMapOf(
+            "images" to itemDetails.images,
+            "category" to itemDetails.category,
+            "location" to itemDetails.location,
+            "title" to itemDetails.title,
+            "description" to itemDetails.description,
+            "price" to itemDetails.price
+        )
+        docRef.set(data)
+            .addOnSuccessListener {
+                Log.d(TAG, "Item added successfully!")
+                binding.llLoading.visibility = View.INVISIBLE
+                    binding.lottieLoading.visibility = View.INVISIBLE
+                val intent = Intent(requireContext(), MainActivity::class.java)
+                startActivity(intent)
+            }
     }
 
 
