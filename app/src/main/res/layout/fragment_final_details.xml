@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.FinalDetailsFragment">
+    tools:context=".fragment.FinalDetailsFragment"
+    android:background="@color/creamGrey">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -29,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="25dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/outline_box"
+            android:background="@drawable/outline_square_box"
             android:gravity="start|center_vertical"
             android:maxLines="1"
             android:textColor="@color/black"
@@ -60,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="25dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/outline_box"
+            android:background="@drawable/outline_square_box"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:paddingEnd="4dp"
@@ -91,7 +92,7 @@
             android:layout_height="110dp"
             android:layout_margin="25dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/outline_box"
+            android:background="@drawable/outline_square_box"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:paddingEnd="4dp"
@@ -125,7 +126,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDescription"
             android:weightSum="1"
-            android:background="@drawable/outline_box">
+            android:background="@drawable/outline_square_box">
 
             <TextView
                 android:layout_width="0dp"
@@ -133,7 +134,7 @@
                 android:layout_weight="0.1"
                 android:layout_marginStart="10dp"
                 android:gravity="start"
-                android:text="$"
+                android:text="₹"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:padding="4dp"/>
@@ -174,7 +175,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="50dp"
             android:padding="10dp"
-            android:background="@drawable/outline_box"/>
+            android:background="@drawable/outline_square_box"/>
 
 
         <Button
@@ -195,7 +196,7 @@
             android:id="@+id/llLoading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/lightSeaGreen"
+            android:background="@color/creamGrey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -214,7 +215,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_rawRes="@raw/progress_loading"
-            android:backgroundTint="@color/lightSeaGreen"
+            android:backgroundTint="@color/creamGrey"
             android:backgroundTintMode="src_over"/>
 
         <com.airbnb.lottie.LottieAnimationView
@@ -229,7 +230,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_rawRes="@raw/success"
-            android:backgroundTint="@color/lightSeaGreen"
+            android:backgroundTint="@color/seaGreen"
             android:backgroundTintMode="src_over"/>
 
 

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.AddPhotosFragment">
+    tools:context=".fragment.AddPhotosFragment"
+    android:background="@color/creamGrey">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:background="@drawable/outline_box"
-            android:backgroundTint="@color/lightSeaGreen"
+            android:backgroundTint="@color/seaGreen"
             android:orientation="horizontal"
             android:padding="2dp"
             android:weightSum="2"
@@ -67,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:backgroundTint="@color/lightSeaGreen"
+            android:backgroundTint="@color/seaGreen"
             android:text="@string/next"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"

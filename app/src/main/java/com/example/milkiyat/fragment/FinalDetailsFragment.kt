@@ -63,6 +63,7 @@ class FinalDetailsFragment : Fragment() {
         binding.btnPost.setOnClickListener {
             loadingLayout.visibility = View.VISIBLE
             loading.visibility = View.VISIBLE
+            binding.btnPost.visibility = View.INVISIBLE
 
             val itemDetails = ItemDetails(
                 images = images,
@@ -73,9 +74,6 @@ class FinalDetailsFragment : Fragment() {
                 price = etPrice!!
             )
             addItemToFirestore(itemDetails)
-
-
-
         }
 
         return view
@@ -109,6 +107,7 @@ class FinalDetailsFragment : Fragment() {
             .addOnFailureListener {
                 binding.llLoading.visibility = View.INVISIBLE
                 binding.lottieLoading.visibility = View.INVISIBLE
+                binding.btnPost.visibility = View.VISIBLE
                 Toast.makeText(requireContext(), "Failed to upload", Toast.LENGTH_SHORT).show()
             }
     }
