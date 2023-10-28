@@ -78,7 +78,7 @@
             app:boxBackgroundMode="none"
             android:background="@drawable/outline_square_box">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/tvLocationText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

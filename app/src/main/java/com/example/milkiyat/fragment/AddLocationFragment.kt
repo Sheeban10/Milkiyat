@@ -2,6 +2,7 @@ package com.example.milkiyat.fragment
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.Bundle
@@ -10,6 +11,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -18,6 +21,8 @@ import com.example.milkiyat.R
 import com.example.milkiyat.databinding.FragmentAddLocationBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
 import java.util.Locale
 
 class AddLocationFragment : Fragment() {
@@ -25,6 +30,7 @@ class AddLocationFragment : Fragment() {
     private lateinit var binding: FragmentAddLocationBinding
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     lateinit var locationText : EditText
+    private val locationHint = mutableListOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +48,11 @@ class AddLocationFragment : Fragment() {
         binding.llLocation.setOnClickListener {
             location()
         }
+
+        val locationHint = arrayListOf<String>("Makhdoom Sahib", "Nowhata", "Khaniyar", "Khayam")
+
+        val arrayAdapter = ArrayAdapter<String>(requireContext(),android.R.layout.simple_list_item_1, locationHint)
+        binding.tvLocationText.setAdapter(arrayAdapter)
 
         binding.btnNext.setOnClickListener {
             if (locationText.text.isNotEmpty()) {
@@ -123,6 +134,10 @@ class AddLocationFragment : Fragment() {
                         val pincode = address[0].postalCode
                         val country = address[0].countryName
 
+                        if (subCity != null){
+                            locationHint.add(subCity)
+                        }
+
                         // Log the retrieved location data for debugging
                         Log.d("LocationData", "SubCity : $subCity, City: $city, Country: $country")
 
@@ -153,3 +168,5 @@ class AddLocationFragment : Fragment() {
 
 
 }
+
+
