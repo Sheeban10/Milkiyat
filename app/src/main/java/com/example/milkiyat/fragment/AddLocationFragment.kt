@@ -23,14 +23,22 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
+import com.google.android.libraries.places.api.net.PlacesClient
 import java.util.Locale
 
 class AddLocationFragment : Fragment() {
 
     private lateinit var binding: FragmentAddLocationBinding
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    lateinit var locationText : EditText
+    lateinit var locationText : AutoCompleteTextView
     private val locationHint = mutableListOf<String>()
+    private lateinit var placesClient: PlacesClient
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Places.initialize(requireContext(), "YOUR_API_KEY")
+        placesClient = Places.createClient(requireContext())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -134,15 +142,14 @@ class AddLocationFragment : Fragment() {
                         val pincode = address[0].postalCode
                         val country = address[0].countryName
 
-                        if (subCity != null){
-                            locationHint.add(subCity)
-                        }
 
                         // Log the retrieved location data for debugging
                         Log.d("LocationData", "SubCity : $subCity, City: $city, Country: $country")
 
                         val locDetails = "$subCity, $city, $pincode"
                         locationText.setText(locDetails)
+
+                        fetchLocationsInCity(city)
 
                     } else {
                         Log.e("LocationData", "Geocoder data is not available")
@@ -164,6 +171,25 @@ class AddLocationFragment : Fragment() {
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+    }
+
+    private fun fetchLocationsInCity(cityName: String) {
+        val request = FindAutocompletePredictionsRequest.builder()
+            .setQuery(cityName)
+            .build()
+
+        placesClient.findAutocompletePredictions(request).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val predictions = task.result?.autocompletePredictions
+                if (predictions != null) {
+                    locationHint.addAll(predictions.map { it.getFullText(null).toString() })
+                    binding.tvLocationText.setAdapter(ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, locationHint))
+                }
+            } else {
+                Log.e("LocationData", "Failed to fetch locations: ${task.exception}")
+                Toast.makeText(requireContext(), "Failed to fetch locations", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
 
