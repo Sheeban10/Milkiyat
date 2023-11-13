@@ -3,6 +3,7 @@ package com.example.milkiyat.fragment
 import android.Manifest
 import android.app.Activity
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.Bundle
@@ -59,7 +60,13 @@ class HomeFragment : Fragment() {
 
         recyclerCategories = view.findViewById(R.id.rvCategories)
         layoutManager = GridLayoutManager(activity, 2)
-        getFirebaseCategories()
+        getFirebaseCategories{ selectedCategory ->
+
+            "Houses" ; goToHouseActivity()
+            Toast.makeText(requireContext(), "Clicked on ${
+                selectedCategory.categoryName}", Toast.LENGTH_SHORT).show()
+
+        }
 
         /*recyclerItemList = view.findViewById(R.id.rvItemList)
         layoutManager = GridLayoutManager(activity, 2)*/
@@ -68,7 +75,12 @@ class HomeFragment : Fragment() {
         return view
     }
 
-    private fun getFirebaseCategories() {
+    private fun goToHouseActivity() {
+        /*val intent = Intent(requireContext(), HousesCategoryActivity::class.java)
+        startActivity(intent)*/
+    }
+
+    private fun getFirebaseCategories(onCategoryClickListener: (Categories) -> Unit) {
 
         val dbCategories = FirebaseFirestore.getInstance()
         val categoriesRef = dbCategories.collection("categories")
@@ -83,7 +95,7 @@ class HomeFragment : Fragment() {
                 Log.d(TAG, "Categories List Size: ${categoriesList.size}")
 
                 // Create and set the RecyclerView adapter
-                categoriesRecyclerAdapter = HomeCategoriesAdapter(categoriesList)
+                categoriesRecyclerAdapter = HomeCategoriesAdapter(categoriesList, onCategoryClickListener)
                 recyclerCategories.adapter = categoriesRecyclerAdapter
                 recyclerCategories.layoutManager = layoutManager
             }

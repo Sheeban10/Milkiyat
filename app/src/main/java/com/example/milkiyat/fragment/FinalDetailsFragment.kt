@@ -17,7 +17,10 @@ import com.example.milkiyat.MainActivity
 import com.example.milkiyat.adapter.UploadImagesAdapter
 import com.example.milkiyat.databinding.FragmentFinalDetailsBinding
 import com.example.milkiyat.model.ItemDetails
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.UploadTask
 
 
 class FinalDetailsFragment : Fragment() {
@@ -82,35 +85,111 @@ class FinalDetailsFragment : Fragment() {
     private fun addItemToFirestore(itemDetails: ItemDetails) {
         val db = FirebaseFirestore.getInstance()
 
-        val docRef =db.collection("ItemDetails").document()
+        val docRef = db.collection("ItemDetails").document()
 
-        val data = hashMapOf(
-            "images" to itemDetails.images,
-            "category" to itemDetails.category,
-            "location" to itemDetails.location,
-            "title" to itemDetails.title,
-            "description" to itemDetails.description,
-            "price" to itemDetails.price
-        )
-        docRef.set(data)
-            .addOnSuccessListener {
-                Log.d(TAG, "Item added successfully!")
-                binding.success.visibility = View.VISIBLE
+        uploadImagesToStorage(itemDetails.images ?: emptyList()) { imageUrls ->
+
+            val data = hashMapOf(
+                "images" to imageUrls,
+                "category" to itemDetails.category,
+                "location" to itemDetails.location,
+                "title" to itemDetails.title,
+                "description" to itemDetails.description,
+                "price" to itemDetails.price
+            )
+            docRef.set(data)
+                .addOnSuccessListener {
+                    Log.d(TAG, "Item added successfully!")
+                    binding.success.visibility = View.VISIBLE
                     binding.lottieLoading.visibility = View.INVISIBLE
-                Handler().postDelayed({
-                    val intent = Intent(requireContext(), MainActivity::class.java)
-                    startActivity(intent)
-                }, 3000
-                )
+                    Handler().postDelayed(
+                        {
+                            val intent = Intent(requireContext(), MainActivity::class.java)
+                            startActivity(intent)
+                        }, 3000
+                    )
 
-            }
-            .addOnFailureListener {
-                binding.llLoading.visibility = View.INVISIBLE
-                binding.lottieLoading.visibility = View.INVISIBLE
-                binding.btnPost.visibility = View.VISIBLE
-                Toast.makeText(requireContext(), "Failed to upload", Toast.LENGTH_SHORT).show()
-            }
+                }
+                .addOnFailureListener {
+                    binding.llLoading.visibility = View.INVISIBLE
+                    binding.lottieLoading.visibility = View.INVISIBLE
+                    binding.btnPost.visibility = View.VISIBLE
+                    Toast.makeText(requireContext(), "Failed to upload", Toast.LENGTH_SHORT).show()
+                }
+        }
     }
 
+    /*private fun uploadImagesToStorage(images: List<Uri>, onComplete: (List<String>) -> Unit) {
+
+        val storageRef = FirebaseStorage.getInstance().reference
+
+        val uploadTasks = mutableListOf<UploadTask>()
+
+        val downloadUrls = mutableListOf<String>()
+
+        for ((index, imageUri) in images.withIndex()) {
+            val imageName = "image_$index.jpg"
+            val imageRef = storageRef.child("images/$imageName")
+
+            val uploadTask = imageRef.putFile(imageUri)
+
+            uploadTasks.add(uploadTask)
+
+            uploadTask.continueWithTask { task ->
+                if (!task.isSuccessful) {
+                    task.exception?.let { throw it }
+                }
+                imageRef.downloadUrl
+            }.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val downloadUrl = task.result.toString()
+                    downloadUrls.add(downloadUrl)
+
+                    // If all images are uploaded and download URLs are obtained, trigger the onComplete callback
+                    if (downloadUrls.size == images.size) {
+                        onComplete.invoke(downloadUrls)
+                    }
+                } else {
+                    // Handle error
+                    Log.e(TAG, "Error uploading image", task.exception)
+                }
+            }
+        }
+
+    }*/
+
+    private fun uploadImagesToStorage(images: List<Uri>, onComplete: (List<String>) -> Unit) {
+        val storageRef = FirebaseStorage.getInstance().reference
+        val downloadUrls = mutableListOf<String>()
+
+        val uploadTasks = images.mapIndexed { index, imageUri ->
+            val imageName = "image_$index.jpg" // You can customize the image name as needed
+            val imageRef = storageRef.child("images/$imageName")
+
+            imageRef.putFile(imageUri).continueWithTask { task ->
+                if (!task.isSuccessful) {
+                    task.exception?.let { throw it }
+                }
+                imageRef.downloadUrl
+            }
+        }
+
+        // Wait for all tasks to complete
+        Tasks.whenAll(uploadTasks)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Extract download URLs from completed tasks
+                    for (uploadTask in uploadTasks) {
+                        val downloadUrl = uploadTask.result.toString()
+                        downloadUrls.add(downloadUrl)
+                    }
+
+                    onComplete.invoke(downloadUrls)
+                } else {
+                    // Handle error
+                    Log.e(TAG, "Error uploading images", task.exception)
+                }
+            }
+    }
 
 }

@@ -10,7 +10,7 @@ import com.example.milkiyat.R
 import com.example.milkiyat.model.Categories
 import com.squareup.picasso.Picasso
 
-class HomeCategoriesAdapter(val itemList : ArrayList<Categories>) : RecyclerView.Adapter<HomeCategoriesAdapter.CategoriesViewHolder>() {
+class HomeCategoriesAdapter(val itemList : ArrayList<Categories>, val onCategoryClickListener: (Categories) -> Unit) : RecyclerView.Adapter<HomeCategoriesAdapter.CategoriesViewHolder>() {
 
     class CategoriesViewHolder(view : View) :RecyclerView.ViewHolder(view){
         val categoriesImage : ImageView = view.findViewById(R.id.imgCategories)
@@ -32,5 +32,9 @@ class HomeCategoriesAdapter(val itemList : ArrayList<Categories>) : RecyclerView
 
         Picasso.get().load(categories.categoryImage).into(holder.categoriesImage)
         holder.categoriesName.text = categories.categoryName
+
+        holder.itemView.setOnClickListener {
+            onCategoryClickListener.invoke(categories)
+        }
     }
 }
