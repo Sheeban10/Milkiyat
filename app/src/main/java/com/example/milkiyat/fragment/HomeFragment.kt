@@ -20,9 +20,10 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.milkiyat.HousesCategoryActivity
+import com.example.milkiyat.LandCategoryActivity
 import com.example.milkiyat.R
 import com.example.milkiyat.adapter.HomeCategoriesAdapter
-import com.example.milkiyat.adapter.HomeItemsAdapter
+import com.example.milkiyat.adapter.ItemCategoriesAdapter
 import com.example.milkiyat.model.Categories
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -36,11 +37,9 @@ class HomeFragment : Fragment() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private lateinit var recyclerCategories : RecyclerView
-    private lateinit var recyclerItemList : RecyclerView
     private lateinit var layoutManager : RecyclerView.LayoutManager
 
     lateinit var categoriesRecyclerAdapter : HomeCategoriesAdapter
-    lateinit var listRecyclerAdapter : HomeItemsAdapter
 
 
     override fun onCreateView(
@@ -77,7 +76,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun goToLandActivity() {
-
+        val intent = Intent(requireContext(), LandCategoryActivity::class.java)
+        startActivity(intent)
     }
 
     private fun goToHouseActivity() {

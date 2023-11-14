@@ -10,7 +10,7 @@ import com.example.milkiyat.R
 import com.example.milkiyat.model.ItemList
 import com.squareup.picasso.Picasso
 
-class HomeItemsAdapter(val itemList : ArrayList<ItemList>) :RecyclerView.Adapter<HomeItemsAdapter.ItemsViewHolder>(){
+class ItemCategoriesAdapter(val itemList : ArrayList<ItemList>) :RecyclerView.Adapter<ItemCategoriesAdapter.ItemsViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.rv_item_list, parent, false)
@@ -25,10 +25,10 @@ class HomeItemsAdapter(val itemList : ArrayList<ItemList>) :RecyclerView.Adapter
     override fun onBindViewHolder(holder: ItemsViewHolder, position: Int) {
         val itemList = itemList[position]
 
-        Picasso.get().load(itemList.itemListImage).into(holder.itemImage)
-        holder.itemAbout.text = itemList.itemListAbout
-        holder.itemPrice.text = itemList.itemListPrice
-        holder.itemLocation.text = itemList.itemListLocation
+        Picasso.get().load(itemList.images).into(holder.itemImage)
+        holder.itemAbout.text = itemList.about
+        holder.itemPrice.text = itemList.price
+        holder.itemLocation.text = itemList.location
     }
 
 
