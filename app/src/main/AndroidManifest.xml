@@ -39,6 +39,8 @@
             android:exported="true"/>
         <activity android:name="com.example.milkiyat.LoginActivity" />
         <activity android:name="com.example.milkiyat.AddItem" />
+        <activity android:name="com.example.milkiyat.HousesCategoryActivity" />
+        <activity android:name="com.example.milkiyat.LandCategoryActivity" />
     </application>
 
 </manifest>

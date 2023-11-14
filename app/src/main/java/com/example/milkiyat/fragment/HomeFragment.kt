@@ -19,6 +19,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.milkiyat.HousesCategoryActivity
 import com.example.milkiyat.R
 import com.example.milkiyat.adapter.HomeCategoriesAdapter
 import com.example.milkiyat.adapter.HomeItemsAdapter
@@ -60,12 +61,12 @@ class HomeFragment : Fragment() {
 
         recyclerCategories = view.findViewById(R.id.rvCategories)
         layoutManager = GridLayoutManager(activity, 2)
-        getFirebaseCategories{ selectedCategory ->
 
-            "Houses" ; goToHouseActivity()
-            Toast.makeText(requireContext(), "Clicked on ${
-                selectedCategory.categoryName}", Toast.LENGTH_SHORT).show()
-
+        getFirebaseCategories { categoriesName->
+            when (categoriesName){
+                "Houses" -> goToHouseActivity()
+                "Land" -> goToLandActivity()
+            }
         }
 
         /*recyclerItemList = view.findViewById(R.id.rvItemList)
@@ -75,12 +76,16 @@ class HomeFragment : Fragment() {
         return view
     }
 
-    private fun goToHouseActivity() {
-        /*val intent = Intent(requireContext(), HousesCategoryActivity::class.java)
-        startActivity(intent)*/
+    private fun goToLandActivity() {
+
     }
 
-    private fun getFirebaseCategories(onCategoryClickListener: (Categories) -> Unit) {
+    private fun goToHouseActivity() {
+        val intent = Intent(requireContext(), HousesCategoryActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun getFirebaseCategories(onCategoryClickListener: (String) -> Unit) {
 
         val dbCategories = FirebaseFirestore.getInstance()
         val categoriesRef = dbCategories.collection("categories")
@@ -95,7 +100,10 @@ class HomeFragment : Fragment() {
                 Log.d(TAG, "Categories List Size: ${categoriesList.size}")
 
                 // Create and set the RecyclerView adapter
-                categoriesRecyclerAdapter = HomeCategoriesAdapter(categoriesList, onCategoryClickListener)
+                categoriesRecyclerAdapter = HomeCategoriesAdapter(categoriesList) { selectedCategory ->
+                    // Pass the selected category to the callback
+                    onCategoryClickListener(selectedCategory)
+                }
                 recyclerCategories.adapter = categoriesRecyclerAdapter
                 recyclerCategories.layoutManager = layoutManager
             }
