@@ -25,8 +25,8 @@ class ItemCategoriesAdapter(val itemList : ArrayList<ItemList>) :RecyclerView.Ad
     override fun onBindViewHolder(holder: ItemsViewHolder, position: Int) {
         val itemList = itemList[position]
 
-        Picasso.get().load(itemList.images).into(holder.itemImage)
-        holder.itemAbout.text = itemList.about
+        Picasso.get().load(itemList.images[0]).error(R.drawable.house).into(holder.itemImage)
+        holder.itemTitle.text = itemList.title
         holder.itemPrice.text = itemList.price
         holder.itemLocation.text = itemList.location
     }
@@ -34,8 +34,9 @@ class ItemCategoriesAdapter(val itemList : ArrayList<ItemList>) :RecyclerView.Ad
 
     class ItemsViewHolder(view : View): RecyclerView.ViewHolder(view){
         val itemImage : ImageView = view.findViewById(R.id.ivItemImage)
-        val itemAbout : TextView = view.findViewById(R.id.tvItemAbout)
+        val itemTitle : TextView = view.findViewById(R.id.tvItemTitle)
         val itemPrice : TextView = view.findViewById(R.id.tvitemPrice)
         val itemLocation : TextView = view.findViewById(R.id.tvItemLocation)
     }
 }
+

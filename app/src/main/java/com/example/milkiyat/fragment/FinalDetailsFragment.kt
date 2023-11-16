@@ -87,10 +87,9 @@ class FinalDetailsFragment : Fragment() {
 
         val docRef = db.collection("ItemDetails").document()
 
-        uploadImagesToStorage(itemDetails.images ?: emptyList()) { imageUrls ->
 
             val data = hashMapOf(
-                "images" to imageUrls,
+                "images" to itemDetails.images,
                 "category" to itemDetails.category,
                 "location" to itemDetails.location,
                 "title" to itemDetails.title,
@@ -116,7 +115,7 @@ class FinalDetailsFragment : Fragment() {
                     binding.btnPost.visibility = View.VISIBLE
                     Toast.makeText(requireContext(), "Failed to upload", Toast.LENGTH_SHORT).show()
                 }
-        }
+
     }
 
     /*private fun uploadImagesToStorage(images: List<Uri>, onComplete: (List<String>) -> Unit) {
@@ -158,7 +157,7 @@ class FinalDetailsFragment : Fragment() {
 
     }*/
 
-    private fun uploadImagesToStorage(images: List<Uri>, onComplete: (List<String>) -> Unit) {
+/*    private fun uploadImagesToStorage(images: List<Uri>, onComplete: (List<String>) -> Unit) {
         val storageRef = FirebaseStorage.getInstance().reference
         val downloadUrls = mutableListOf<String>()
 
@@ -190,6 +189,6 @@ class FinalDetailsFragment : Fragment() {
                     Log.e(TAG, "Error uploading images", task.exception)
                 }
             }
-    }
+    }*/
 
 }

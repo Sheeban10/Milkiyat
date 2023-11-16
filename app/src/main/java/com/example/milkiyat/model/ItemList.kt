@@ -1,8 +1,8 @@
 package com.example.milkiyat.model
 
 data class ItemList(
-    val images : String = "",
-    val about : String = "",
+    val images : ArrayList<String>,
+    val title : String = "",
     val price : String = "",
     val location : String = ""
 )

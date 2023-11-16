@@ -31,7 +31,6 @@ class LandCategoryActivity: AppCompatActivity() {
 
         getFirebaseitemList("land")
 
-
     }
 
     private fun getFirebaseitemList(category: String) {

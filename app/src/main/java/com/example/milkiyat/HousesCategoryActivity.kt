@@ -16,7 +16,6 @@ class HousesCategoryActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityHouseCategoryBinding
     private lateinit var rvHouseCategories: RecyclerView
-    private lateinit var layoutmanager: RecyclerView.LayoutManager
     private lateinit var itemListAdapter : ItemCategoriesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,20 +26,21 @@ class HousesCategoryActivity: AppCompatActivity() {
         setContentView(view)
 
         rvHouseCategories = binding.rvHouseCategories
-        layoutmanager = GridLayoutManager(this, 2 , LinearLayoutManager.VERTICAL, false)
+        rvHouseCategories.layoutManager = GridLayoutManager(this, 2 , LinearLayoutManager.VERTICAL, false)
 
-        getFirebaseitemList("House")
+
+        getFirebaseitemList()
 
 
     }
 
-    private fun getFirebaseitemList(category: String) {
+    private fun getFirebaseitemList() {
 
 
         val dbItems = FirebaseFirestore.getInstance()
         val itemRef = dbItems.collection("ItemDetails")
 
-        itemRef.whereEqualTo("category", category)
+        itemRef
             .get()
             .addOnSuccessListener {result ->
                 val itemList = ArrayList<ItemList>()
@@ -49,6 +49,8 @@ class HousesCategoryActivity: AppCompatActivity() {
                     itemList.add(item)
                 }
                 Log.d(TAG, "Items List Size: ${itemList.size}")
+                Log.d(TAG, "Items: ${itemList}")
+
 
                 itemListAdapter = ItemCategoriesAdapter(itemList)
                 rvHouseCategories.adapter = itemListAdapter
