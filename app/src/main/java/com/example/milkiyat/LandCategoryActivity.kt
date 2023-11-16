@@ -28,7 +28,7 @@ class LandCategoryActivity: AppCompatActivity() {
         rvLandCategories = binding.rvHouseCategories
         rvLandCategories.layoutManager = GridLayoutManager(this, 2 , LinearLayoutManager.VERTICAL, false)
 
-        getFirebaseitemList("land")
+        getFirebaseitemList("Land")
 
     }
 

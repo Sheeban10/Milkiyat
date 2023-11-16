@@ -28,19 +28,18 @@ class HousesCategoryActivity: AppCompatActivity() {
         rvHouseCategories = binding.rvHouseCategories
         rvHouseCategories.layoutManager = GridLayoutManager(this, 2 , LinearLayoutManager.VERTICAL, false)
 
-
-        getFirebaseitemList()
+        getFirebaseitemList("House")
 
 
     }
 
-    private fun getFirebaseitemList() {
+    private fun getFirebaseitemList(category: String) {
 
 
         val dbItems = FirebaseFirestore.getInstance()
         val itemRef = dbItems.collection("ItemDetails")
 
-        itemRef
+        itemRef.whereEqualTo("category", category)
             .get()
             .addOnSuccessListener {result ->
                 val itemList = ArrayList<ItemList>()
@@ -49,8 +48,6 @@ class HousesCategoryActivity: AppCompatActivity() {
                     itemList.add(item)
                 }
                 Log.d(TAG, "Items List Size: ${itemList.size}")
-                Log.d(TAG, "Items: ${itemList}")
-
 
                 itemListAdapter = ItemCategoriesAdapter(itemList)
                 rvHouseCategories.adapter = itemListAdapter
