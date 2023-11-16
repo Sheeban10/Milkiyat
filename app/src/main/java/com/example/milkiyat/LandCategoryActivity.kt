@@ -16,7 +16,6 @@ class LandCategoryActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityLandCategoryBinding
     private lateinit var rvLandCategories: RecyclerView
-    private lateinit var layoutmanager: RecyclerView.LayoutManager
     private lateinit var itemListAdapter : ItemCategoriesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +26,7 @@ class LandCategoryActivity: AppCompatActivity() {
         setContentView(view)
 
         rvLandCategories = binding.rvHouseCategories
-        layoutmanager = GridLayoutManager(this, 2 , LinearLayoutManager.VERTICAL, false)
+        rvLandCategories.layoutManager = GridLayoutManager(this, 2 , LinearLayoutManager.VERTICAL, false)
 
         getFirebaseitemList("land")
 
