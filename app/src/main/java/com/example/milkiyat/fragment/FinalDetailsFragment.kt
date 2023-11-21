@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.text.style.ClickableSpan
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -44,6 +45,7 @@ class FinalDetailsFragment : Fragment() {
         loading.visibility = View.INVISIBLE
 
         val rvImagesUploaded = binding.rvUploadImage
+        rvImagesUploaded.setOnLongClickListener(null)
 
         val locationText = arguments?.getString("location")
         val etTitle = arguments?.getString("title")
@@ -63,6 +65,7 @@ class FinalDetailsFragment : Fragment() {
         uploadImagesAdapter = images?.let { UploadImagesAdapter(it) }!!
         rvImagesUploaded.adapter = uploadImagesAdapter
 
+
         binding.btnPost.setOnClickListener {
             loadingLayout.visibility = View.VISIBLE
             loading.visibility = View.VISIBLE
@@ -76,10 +79,20 @@ class FinalDetailsFragment : Fragment() {
                 description = etDescription!!,
                 price = etPrice!!
             )
+
+            addPhotosToStorage(images)
             addItemToFirestore(itemDetails)
         }
 
         return view
+    }
+
+    private fun addPhotosToStorage(images : ArrayList<Uri>){
+
+        val storage = FirebaseStorage.getInstance().reference.child("Images")
+
+
+
     }
 
     private fun addItemToFirestore(itemDetails: ItemDetails) {
